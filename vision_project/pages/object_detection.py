@@ -331,6 +331,12 @@ st.markdown(
             이미지를 업로드하고 객체 탐지 결과를 시각적으로 확인해보세요.
             탐지된 객체 수, 클래스 분포, 신뢰도 점수를 한 번에 확인할 수 있습니다.
         </div>
+        <div class="hero-desc">
+            <p>Object Detection은 이미지를 입력받아 사물을 추론하는 모델입니다.</p>
+            <p>Object Detection으로 어떤 사물인지 판별 할수 있습니다.</p>
+            <p>Object Detection을 학습할 때에는 노이즈가 섞이지 않게 라벨링을 주의해야합니다.</p>
+            </div>
+        </div>
     </div>
     """,
     unsafe_allow_html=True,

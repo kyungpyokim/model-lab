@@ -148,3 +148,14 @@ model = YOLO('../runs/detect/yolo_run/train2/weights/best.pt')
 from lib.utils.path import data_path
 
 results = model.predict(source=data_path() / 'images' / 'badugi.jpg', save=True)
+
+# %%
+import json
+
+import requests
+
+from lib.utils.path import data_path
+
+with open(data_path() / 'images' / 'badugi.jpg', 'rb') as f:
+    res = requests.post('http://localhost:8000/detect_image', files={'file': f})
+    print(json.dumps(res.json(), indent=4))
