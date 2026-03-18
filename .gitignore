@@ -11,3 +11,4 @@ DogCatProject-1/
 
 # Virtual environments
 .venv
+.env
