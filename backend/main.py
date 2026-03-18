@@ -2,15 +2,29 @@
 import io
 import shutil
 from datetime import datetime
+from typing import Annotated
 
-from fastapi import FastAPI, File, UploadFile
+import numpy as np
+from fastapi import FastAPI, File, Form, Response, UploadFile
 from PIL import Image
 from ultralytics import YOLO
+from ultralytics.models.sam import SAM3SemanticPredictor
 
 from lib.utils.path import data_path, model_path
 
 model = YOLO(model_path('yolo26n.pt'))
 print('모델을 불러왔습니다.')
+
+overrides = {
+    'conf': 0.25,
+    'task': 'segment',
+    'mode': 'predict',
+    'model': model_path('sam3.pt'),
+    'half': True,
+    'save': True,
+}
+
+predictor = SAM3SemanticPredictor(overrides=overrides)
 
 app = FastAPI()
 
@@ -23,7 +37,7 @@ async def root():
 # 사용자가 이미지를 입력하면 서버는 이미지를 저장한다.
 # 파일 저장 이름 바꾸기(오늘날짜-파일이름) hint: datetime
 @app.post('/upload_image')
-def save_image(file: UploadFile = File(...)):
+def save_image(file: Annotated[UploadFile, File(...)]):
     # 파일 이름 설정
     now = datetime.now().strftime('%Y%m%d%H%M%S')
     file_name = f'./images/{now}-{file.filename}'
@@ -40,7 +54,7 @@ def save_image(file: UploadFile = File(...)):
 
 
 @app.post('/detect_image')
-async def predict_yolo(file: UploadFile = File(...)):
+async def predict_yolo(file: Annotated[UploadFile, File(...)]):
     # img 읽기
     img = Image.open(io.BytesIO(await file.read()))
 
@@ -74,3 +88,29 @@ async def predict_yolo(file: UploadFile = File(...)):
         'time': datetime.now().strftime('%Y%m%d%H%M%S'),
         'object_detection': detections,
     }
+
+
+@app.post('/segment_image')
+async def segment(
+    file: Annotated[UploadFile, File(...)], text_prompt: str = Form('person')
+):
+    # 1. 이미지 읽기
+    contents = await file.read()
+    img = Image.open(io.BytesIO(contents)).convert('RGB')
+
+    # 2. 모델 예측 (SAM이나 YOLO-World 등 사용 중인 모델 가정)
+    predictor.set_image(np.array(img))
+    pred = predictor(text=[text_prompt])[0]
+
+    # 3. 마스크 데이터 추출 (Tensor -> Numpy)
+    # pred.masks.data[0] 형태가 [H, W]인 0과 1로 이루어진 마스크라고 가정
+    mask_uint8 = (pred.masks.data[0].cpu().numpy() * 255).astype(np.uint8)
+    mask_img = Image.fromarray(mask_uint8)
+
+    # 4. 메모리에 이미지를 PNG로 저장
+    img_byte_arr = io.BytesIO()
+    mask_img.save(img_byte_arr, format='PNG')
+    img_bytes = img_byte_arr.getvalue()
+
+    # 5. 파일을 직접 반환 (브라우저에서 바로 이미지로 보임)
+    return Response(content=img_bytes, media_type='image/png')

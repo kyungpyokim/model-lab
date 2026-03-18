@@ -5,6 +5,8 @@ import streamlit as st
 from PIL import Image
 from ultralytics import YOLO
 
+from lib.utils.path import model_path
+
 # --- 1. 페이지 설정 ---
 st.set_page_config(
     page_title='VisionAI | Object Detection Dashboard',
@@ -263,7 +265,7 @@ if 'inference_time' not in st.session_state:
 # --- 4. 모델 로드 ---
 @st.cache_resource(show_spinner='딥러닝 모델을 불러오는 중...')
 def load_model():
-    return YOLO('./models/yolo26n.pt')
+    return YOLO(model_path('yolo26n.pt'))
 
 
 try:
