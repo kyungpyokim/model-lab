@@ -156,6 +156,7 @@ st.markdown(
         <div class="hero-title">SAM3 Segmentation</div>
         <div class="hero-subtitle">
             이미지를 업로드하고 세그멘테이션 결과를 확인하세요.<br>
+            세그멘테이션이란? 물체감지를 픽셀 단위로 검출하는 기술<br>
             입력 이미지와 추출 결과를 한 화면에서 직관적으로 비교할 수 있도록 구성했습니다.
         </div>
     </div>
