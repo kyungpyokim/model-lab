@@ -17,3 +17,7 @@ def data_path():
     Path(data_path).mkdir(parents=True, exist_ok=True)
 
     return data_path
+
+
+def images_path():
+    return data_path() / 'images'
