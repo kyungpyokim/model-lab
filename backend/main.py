@@ -7,13 +7,13 @@ from typing import Annotated
 import numpy as np
 from fastapi import FastAPI, File, Form, Response, UploadFile
 from PIL import Image
+from transformers import CLIPModel, CLIPProcessor
 from ultralytics import YOLO
 from ultralytics.models.sam import SAM3SemanticPredictor
 
 from lib.utils.path import data_path, model_path
 
 model = YOLO(model_path('yolo26n.pt'))
-print('모델을 불러왔습니다.')
 
 overrides = {
     'conf': 0.25,
@@ -27,6 +27,11 @@ overrides = {
 predictor = SAM3SemanticPredictor(overrides=overrides)
 
 app = FastAPI()
+
+clip_model = CLIPModel.from_pretrained('openai/clip-vit-base-patch32')
+clip_processor = CLIPProcessor.from_pretrained('openai/clip-vit-base-patch32')
+
+print('모델을 불러왔습니다.')
 
 
 @app.get('/')
@@ -114,3 +119,35 @@ async def segment(
 
     # 5. 파일을 직접 반환 (브라우저에서 바로 이미지로 보임)
     return Response(content=img_bytes, media_type='image/png')
+
+
+classes = ['dog', 'cat', 'pig']
+
+
+@app.post('/clip_image')
+async def clip(file: Annotated[UploadFile, File(...)], text_prompt: str = Form('dog')):
+    # 1. 이미지 읽기
+    contents = await file.read()
+    img = Image.open(io.BytesIO(contents)).convert('RGB')
+
+    inputs = clip_processor(
+        text=classes,
+        images=img,
+        return_tensors='pt',
+        padding=True,
+    )
+
+    outputs = clip_model(**inputs)
+    logits_per_image = (
+        outputs.logits_per_image
+    )  # this is the image-text similarity score
+    probs = logits_per_image.softmax(dim=1)
+
+    print(probs[0])
+
+    index = probs[0].argmax()
+    print(index)
+    name = classes[index]
+    print(name)
+
+    return {'index': index.item(), 'classes': classes, 'probs': probs[0].tolist()}

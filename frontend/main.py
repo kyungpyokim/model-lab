@@ -8,6 +8,7 @@ pages = [
     st.Page(page='pages/components.py', title='Basic', icon='😊', default=True),
     st.Page(page='pages/object_detection.py', title='Object Detection', icon='🎯'),
     st.Page(page='pages/segmentation.py', title='Segmentation', icon='🧩'),
+    st.Page(page='pages/clip.py', title='Clip', icon='🖼️'),
     # st.Page(page='pages/chatbot.py', title='Test', icon='😊'),
 ]
 

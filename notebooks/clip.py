@@ -278,7 +278,7 @@ plt.axis('off')
 plt.show()
 
 # %% [markdown]
-# # 실습 3: 모델 유합(YOLO + CLIP)
+# # 실습 3: 모델 융합(YOLO + CLIP)
 
 # %%
 # 나는 이미지에서 사람이 앉아있는지 아닌지를 분류하고 싶습니다.
@@ -372,3 +372,23 @@ for data in persons:
 
     best = classes[probs.argmax()]
     print(f'{best} {probs.max(): .4f}')
+
+# %%
+import matplotlib.pyplot as plt
+from matplotlib import font_manager, rc
+
+font_path = 'C:/Windows/Fonts/malgun.ttf'
+
+font_manager.fontManager.addfont(font_path)
+rc('font', family='Malgun Gothic')
+plt.rcParams['axes.unicode_minus']
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+
+axes[0].plot([1, 2, 3, 4, 5])
+axes[0].set_title('안녕')
+
+axes[1].plot([1, 2, 3, 4, 5])
+axes[1].set_title('안녕하세요')
+
+plt.show()
