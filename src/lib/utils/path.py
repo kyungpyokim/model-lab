@@ -21,3 +21,7 @@ def data_path():
 
 def images_path():
     return data_path() / 'images'
+
+
+def keys_path():
+    return root / 'keys'
