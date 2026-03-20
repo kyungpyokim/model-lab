@@ -8,6 +8,7 @@ wheels/
 data/
 runs/
 DogCatProject-1/
+keys/
 
 # Virtual environments
 .venv
