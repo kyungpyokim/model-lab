@@ -1,11 +1,12 @@
 # 모델 불러오기
 import io
 import shutil
+from contextlib import asynccontextmanager
 from datetime import datetime
 from typing import Annotated
 
 import numpy as np
-from fastapi import FastAPI, File, Form, Response, UploadFile
+from fastapi import FastAPI, File, Form, Request, Response, UploadFile
 from PIL import Image
 from transformers import CLIPModel, CLIPProcessor
 from ultralytics import YOLO
@@ -13,25 +14,48 @@ from ultralytics.models.sam import SAM3SemanticPredictor
 
 from lib.utils.path import data_path, model_path
 
-model = YOLO(model_path('yolo26n.pt'))
-
-overrides = {
-    'conf': 0.25,
-    'task': 'segment',
-    'mode': 'predict',
-    'model': model_path('sam3.pt'),
-    'half': True,
-    'save': True,
-}
-
-predictor = SAM3SemanticPredictor(overrides=overrides)
-
-app = FastAPI()
-
 clip_model = CLIPModel.from_pretrained('openai/clip-vit-base-patch32')
 clip_processor = CLIPProcessor.from_pretrained('openai/clip-vit-base-patch32')
 
-print('모델을 불러왔습니다.')
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    app.state.models = {
+        'YOLO': create_yolo(),
+        'SAM3': create_sam3(),
+        'clip': create_clip(),
+    }
+
+    print('모델을 불러왔습니다.')
+
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
+
+
+def create_yolo():
+    return YOLO(model_path('yolo26n.pt'))
+
+
+def create_sam3():
+    overrides = {
+        'conf': 0.25,
+        'task': 'segment',
+        'mode': 'predict',
+        'model': model_path('sam3.pt'),
+        'half': True,
+        'save': True,
+    }
+
+    return SAM3SemanticPredictor(overrides=overrides)
+
+
+def create_clip():
+    return (
+        CLIPModel.from_pretrained('openai/clip-vit-base-patch32'),
+        CLIPProcessor.from_pretrained('openai/clip-vit-base-patch32'),
+    )
 
 
 @app.get('/')
@@ -59,9 +83,11 @@ def save_image(file: Annotated[UploadFile, File(...)]):
 
 
 @app.post('/detect_image')
-async def predict_yolo(file: Annotated[UploadFile, File(...)]):
+async def predict_yolo(req: Request, file: Annotated[UploadFile, File(...)]):
     # img 읽기
     img = Image.open(io.BytesIO(await file.read()))
+
+    model = req.app.state.models['YOLO']
 
     # 예측하기
     results = model.predict(img)
@@ -97,12 +123,15 @@ async def predict_yolo(file: Annotated[UploadFile, File(...)]):
 
 @app.post('/segment_image')
 async def segment(
-    file: Annotated[UploadFile, File(...)], text_prompt: str = Form('person')
+    req: Request,
+    file: Annotated[UploadFile, File(...)],
+    text_prompt: str = Form('person'),
 ):
     # 1. 이미지 읽기
     contents = await file.read()
     img = Image.open(io.BytesIO(contents)).convert('RGB')
 
+    predictor = req.app.state.models['SAM3']
     # 2. 모델 예측 (SAM이나 YOLO-World 등 사용 중인 모델 가정)
     predictor.set_image(np.array(img))
     pred = predictor(text=[text_prompt])[0]
