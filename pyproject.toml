@@ -17,6 +17,7 @@ dependencies = [
     "jupyter>=1.1.1",
     "koreanize-matplotlib>=0.1.1",
     "matplotlib>=3.10.8",
+    "mediapipe==0.10.14",
     "nbstripout>=0.9.1",
     "numpy>=2.4.2",
     "opencv-python>=4.13.0.92",
@@ -85,6 +86,7 @@ ignore = [
     'N812',
     'E401',
     'N806',
+    'N816',
 ]
 
 [tool.ruff.format]
