@@ -106,5 +106,7 @@ formats = "ipynb,py:percent"
 [dependency-groups]
 dev = [
     "jupytext>=1.19.1",
+    "ruff>=0.15.7",
+    "ruff-lsp>=0.0.62",
 ]
 
