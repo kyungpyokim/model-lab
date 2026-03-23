@@ -74,7 +74,7 @@ while True:
 
             dist_1 = math.dist(p1, p2)
             print(dist_1)
-            if dist_1 < 0.1:
+            if dist_1 < 10:
                 print("Don't Sleep")
 
             # if i == 470 or i == 472:

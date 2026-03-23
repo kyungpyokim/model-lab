@@ -4,6 +4,8 @@ import gdown
 
 from lib.utils.path import data_path
 
+url = 'https://drive.google.com/drive/folders/1XwvU5Rfgmg07Gbh44-kkBfZVW-QBNPZF?usp=drive_link'
+
 
 def download_images(files: list[tuple[str, str]]) -> None:
     # 3. 반복문을 통한 다운로드 실행
