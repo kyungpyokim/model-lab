@@ -13,6 +13,7 @@ from ultralytics import YOLO
 from ultralytics.models.sam import SAM3SemanticPredictor
 
 from lib.utils.path import data_path, model_path
+from mybot import ChatRequest, mybot
 
 clip_model = CLIPModel.from_pretrained('openai/clip-vit-base-patch32')
 clip_processor = CLIPProcessor.from_pretrained('openai/clip-vit-base-patch32')
@@ -20,13 +21,13 @@ clip_processor = CLIPProcessor.from_pretrained('openai/clip-vit-base-patch32')
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.models = {
-        'YOLO': create_yolo(),
-        'SAM3': create_sam3(),
-        'clip': create_clip(),
-    }
-
-    print('모델을 불러왔습니다.')
+    # app.state.models = {
+    #     'YOLO': create_yolo(),
+    #     'SAM3': create_sam3(),
+    #     'clip': create_clip(),
+    # }
+    #
+    # print('모델을 불러왔습니다.')
 
     yield
 
@@ -180,3 +181,11 @@ async def clip(file: Annotated[UploadFile, File(...)], text_prompt: str = Form('
     print(name)
 
     return {'index': index.item(), 'classes': classes, 'probs': probs[0].tolist()}
+
+
+@app.post('/chat')
+async def chat(req: ChatRequest):
+    print(req.message)
+    res = mybot(req.message)
+
+    return {'text': res}
