@@ -25,3 +25,7 @@ def images_path():
 
 def keys_path():
     return root / 'keys'
+
+
+def audio_path():
+    return data_path() / 'audios'
