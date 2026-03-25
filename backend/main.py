@@ -13,7 +13,7 @@ from ultralytics import YOLO
 from ultralytics.models.sam import SAM3SemanticPredictor
 
 from lib.utils.path import data_path, model_path
-from mybot import ChatRequest, mybot
+from mybot import ChatHistoryRequest, ChatRequest, chatbot2, mybot
 
 clip_model = CLIPModel.from_pretrained('openai/clip-vit-base-patch32')
 clip_processor = CLIPProcessor.from_pretrained('openai/clip-vit-base-patch32')
@@ -189,3 +189,10 @@ async def chat(req: ChatRequest):
     res = mybot(req.message)
 
     return {'text': res}
+
+
+@app.post('/chat_with_history')
+async def chat2(req: ChatHistoryRequest):
+    response = chatbot2(req.history)
+
+    return {'text': response}
