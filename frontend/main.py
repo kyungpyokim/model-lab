@@ -10,6 +10,7 @@ pages = [
     st.Page(page='pages/segmentation.py', title='Segmentation', icon='🧩'),
     st.Page(page='pages/clip.py', title='Clip', icon='🖼️'),
     st.Page(page='pages/mybot.py', title='mybot', icon='😊'),
+    st.Page(page='pages/meeting_minutes.py', title='meeting', icon='🗂️'),
     # st.Page(page='pages/chatbot.py', title='Test', icon='😊'),
 ]
 
