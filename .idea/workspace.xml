@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08c03851-8265-4958-855f-9f73d8155d56" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/pages/chatbot_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/pages/chatbot_api_history.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/pages/meeting_minutes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/7_stt_tts.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/homeworks/STT.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/homeworks/TTS.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/utils/conv_mark_down.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/utils/path.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/utils/path.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,7 +22,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="251" />
+    <option name="cachedIndexableFilesCount" value="263" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -54,42 +62,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Notification.DisplayName-DoNotAsk-vcs.commit.finished": "1 file committed",
-    "Notification.DoNotAsk-vcs.commit.finished": "true",
-    "Python.1_5_7_mediapipe_collect_data.executor": "Debug",
-    "Python.5_4_media_pipe (1).executor": "Debug",
-    "Python.5_4_media_pipe.executor": "Debug",
-    "Python.5_4_media_pipe_1.executor": "Debug",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ai.playground.ignore.import.keys.banner.in.settings": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Workspaces/model_lab/frontend/pages",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-vcs.commit.finished&quot;: &quot;1 file committed&quot;,
+    &quot;Notification.DoNotAsk-vcs.commit.finished&quot;: &quot;true&quot;,
+    &quot;Python.1_5_7_mediapipe_collect_data.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.5_4_media_pipe (1).executor&quot;: &quot;Debug&quot;,
+    &quot;Python.5_4_media_pipe.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.5_4_media_pipe_1.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ai.playground.ignore.import.keys.banner.in.settings&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Workspaces/model_lab/data/audio&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Workspaces\model_lab\data\audio" />
+      <recent name="C:\Workspaces\model_lab\frontend\pages" />
       <recent name="C:\Workspaces\model_lab\data\images" />
       <recent name="C:\Workspaces\model_lab\notebooks" />
       <recent name="C:\Workspaces\model_lab\data\DB" />
-      <recent name="C:\Workspaces\model_lab\data\models" />
-      <recent name="C:\Workspaces\model_lab\data" />
     </key>
   </component>
   <component name="RunManager" selected="Python.1_5_7_mediapipe_collect_data">
@@ -202,7 +210,10 @@
       <workItem from="1774312426478" duration="101000" />
       <workItem from="1774312796862" duration="441000" />
       <workItem from="1774313277396" duration="13355000" />
-      <workItem from="1774330692188" duration="11050000" />
+      <workItem from="1774330692188" duration="12953000" />
+      <workItem from="1774403001768" duration="1325000" />
+      <workItem from="1774405129381" duration="3917000" />
+      <workItem from="1774409111609" duration="8805000" />
     </task>
     <task id="LOCAL-00001" summary="파이참 세팅">
       <option name="closed" value="true" />
@@ -260,7 +271,23 @@
       <option name="project" value="LOCAL" />
       <updated>1774337963874</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="히스토리 기능 추가">
+      <option name="closed" value="true" />
+      <created>1774401323004</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1774401323004</updated>
+    </task>
+    <task id="LOCAL-00009" summary="환경 세팅">
+      <option name="closed" value="true" />
+      <created>1774401352366</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1774401352366</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -286,7 +313,9 @@
     <MESSAGE value="mediapipe 포즈, 홀리스틱, 페이스 추가" />
     <MESSAGE value="파이참 세팅 업데이트" />
     <MESSAGE value="LLM API 사용 및 페르소나 설정" />
-    <option name="LAST_COMMIT_MESSAGE" value="LLM API 사용 및 페르소나 설정" />
+    <MESSAGE value="히스토리 기능 추가" />
+    <MESSAGE value="환경 세팅" />
+    <option name="LAST_COMMIT_MESSAGE" value="환경 세팅" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/model_lab$5_4_media_pipe__1_.coverage" NAME="5_4_media_pipe_1 Coverage Results" MODIFIED="1774231018440" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/notebooks/homeworks" />
